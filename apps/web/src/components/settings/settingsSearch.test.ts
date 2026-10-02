@@ -45,6 +45,20 @@ const ITEMS: ReadonlyArray<SettingsSearchItem> = [
 ];
 
 describe("searchSettings", () => {
+  it("finds worktree branch naming and resolves its settings anchor", () => {
+    expect(searchSettings("branch prefix").map((item) => item.id)).toContain(
+      "worktree-branch-naming",
+    );
+    expect(searchableSetting("worktree-branch-naming")).toEqual({
+      id: "worktree-branch-naming",
+      title: "Branch naming",
+    });
+    expect(getSettingsSearchTargetScope("worktree-branch-naming")).toEqual({
+      scope: "project-defaults",
+      title: "Branch naming",
+    });
+  });
+
   it.each(["send shortcut", "multiline", "new line"])("finds Send shortcut for %s", (query) => {
     expect(searchSettings(query).map((item) => item.id)).toContain("send-shortcut");
   });

@@ -805,6 +805,13 @@ export const SETTINGS_SEARCH_ITEMS = [
     searchTerms: ["pull request merge squash rebase last selected"],
   },
   {
+    id: "worktree-branch-naming",
+    title: "Branch naming",
+    to: "/settings/git",
+    scope: "project-defaults",
+    searchTerms: ["worktree branch name static semantic prefix custom instructions"],
+  },
+  {
     id: "source-control",
     title: "Source control",
     to: "/settings/source-control",
