@@ -1,4 +1,4 @@
-export const GITHUB_REPOSITORY_URL = "https://github.com/BreakTheBeta/T3codefold";
+export const GITHUB_REPOSITORY_URL = "https://github.com/whattheflop/T3codefold";
 
 export const IOS_APP_STORE_URL =
   "https://apps.apple.com/us/app/t3-code-remote-claude-more/id6787819824";

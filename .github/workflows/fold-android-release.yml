@@ -1,0 +1,62 @@
+name: Fold Android release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fold-android-release
+  cancel-in-progress: false
+
+jobs:
+  android:
+    if: github.repository == 'whattheflop/T3codefold'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      APP_VARIANT: preview
+      EXPO_NO_GIT_STATUS: '1'
+      CI: '1'
+      NODE_OPTIONS: --max-old-space-size=6144
+    steps:
+      - uses: actions/checkout@v6
+      - uses: voidzero-dev/setup-vp@v1
+        with:
+          node-version-file: package.json
+          run-install: true
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Generate Android project
+        working-directory: apps/mobile
+        run: vp exec expo prebuild --platform android --no-install
+      - name: Build self-contained preview APK
+        working-directory: apps/mobile/android
+        run: ./gradlew app:assembleRelease --no-daemon -PreactNativeArchitectures=arm64-v8a,x86_64
+      - name: Stage APK and checksum
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(node -p "require('./apps/mobile/app.config.ts').default.version")"
+          mkdir -p release-assets
+          cp apps/mobile/android/app/build/outputs/apk/release/app-release.apk "release-assets/T3-Code-Fold-$version-android-preview.apk"
+          (cd release-assets && sha256sum *.apk > SHA256SUMS)
+          echo "FOLD_ANDROID_VERSION=$version" >> "$GITHUB_ENV"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: fold-android-preview
+          path: release-assets/*
+          if-no-files-found: error
+      - name: Publish Android preview
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          tag="fold-android-v$FOLD_ANDROID_VERSION-${GITHUB_RUN_NUMBER}"
+          gh release create "$tag" release-assets/* --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "Fold Android $FOLD_ANDROID_VERSION preview" --prerelease --notes "Self-contained sideload preview built from this fork. Uses the Expo development signing key; not a Play Store release. JavaScript OTA updates are disabled; install a newer APK to update."

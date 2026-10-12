@@ -1,5 +1,5 @@
 /** Fold distributions are GitHub release assets; the npm `t3` package is upstream. */
-export const FOLD_REPOSITORY = "BreakTheBeta/T3codefold";
+export const FOLD_REPOSITORY = "whattheflop/T3codefold";
 const FOLD_RELEASES_URL = `https://github.com/${FOLD_REPOSITORY}/releases`;
 
 const EXACT_VERSION =

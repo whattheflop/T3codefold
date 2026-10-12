@@ -4,7 +4,18 @@
 
 Use **Fold server release** or **Fold desktop release** in this fork's GitHub Actions.
 The upstream npm release workflow is disabled on forks. Fold is distributed from
-`BreakTheBeta/T3codefold`, not the npm `t3` package.
+`whattheflop/T3codefold`, not the npm `t3` package.
+
+For this fork, run **Fold desktop release** with version `0.4.3`, release tag
+`fold-preview-v0.4.3`, and platform `win` to publish both the server and Windows
+installer. Leave `desktop_only` off for the first build of a version. Choose
+`all` to also build macOS and Linux installers.
+
+Run **Fold Android release** to build and publish a self-contained sideload APK
+without an Expo account. This preview uses Expo's development signing key and
+has OTA updates disabled. Install a newer APK to update; it cannot replace a
+BreakTheBeta APK signed with a different key. For EAS builds, configure your own
+`T3CODE_EXPO_OWNER` and `T3CODE_EAS_PROJECT_ID`, and provide `EXPO_TOKEN`.
 
 The server workflow builds self-contained CLI archives on macOS arm64, Linux
 arm64/x64, and Windows arm64/x64, using upstream's build and packaging scripts.

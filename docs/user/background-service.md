@@ -26,10 +26,10 @@ updates, so the installer and `t3 update` ask for confirmation before
 installing one.
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/BreakTheBeta/T3codefold/main/scripts/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/whattheflop/T3codefold/main/scripts/install.sh | sh
 ```
 
-On Windows, run `irm https://raw.githubusercontent.com/BreakTheBeta/T3codefold/main/scripts/install.ps1 | iex` in PowerShell instead.
+On Windows, run `irm https://raw.githubusercontent.com/whattheflop/T3codefold/main/scripts/install.ps1 | iex` in PowerShell instead.
 
 It places `t3` in `~/.local/bin` and reuses the same download when you later
 run `t3 service install`. It follows the stable train by default; set

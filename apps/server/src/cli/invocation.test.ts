@@ -21,9 +21,9 @@ import {
 
 // Fold suggests its GitHub release tarballs, never the upstream npm `t3` package.
 const STABLE =
-  "https://github.com/BreakTheBeta/T3codefold/releases/download/fold-server-v0.0.31/t3-0.0.31.tgz";
+  "https://github.com/whattheflop/T3codefold/releases/download/fold-server-v0.0.31/t3-0.0.31.tgz";
 const NIGHTLY =
-  "https://github.com/BreakTheBeta/T3codefold/releases/download/fold-server-nightly/t3.tgz";
+  "https://github.com/whattheflop/T3codefold/releases/download/fold-server-nightly/t3.tgz";
 
 it("formats package runner commands from their cache entry paths", () => {
   for (const [entryPath, expected] of [

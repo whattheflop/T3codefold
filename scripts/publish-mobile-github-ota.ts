@@ -5,7 +5,7 @@ import * as NodeOS from "node:os";
 import * as NodePath from "node:path";
 import * as NodeChildProcess from "node:child_process";
 
-const repo = "BreakTheBeta/T3codefold";
+const repo = "whattheflop/T3codefold";
 const releaseTag = "mobile-ota";
 const branch = "mobile-ota";
 const mobileDir = new URL("../apps/mobile/", import.meta.url).pathname;

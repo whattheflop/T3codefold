@@ -69,7 +69,7 @@ async function flushPromises(): Promise<void> {
 }
 
 const FOLD_SPEC_0_0_45 =
-  "https://github.com/BreakTheBeta/T3codefold/releases/download/fold-server-v0.0.45/t3-0.0.45.tgz";
+  "https://github.com/whattheflop/T3codefold/releases/download/fold-server-v0.0.45/t3-0.0.45.tgz";
 
 describe("ServerUpdateAction", () => {
   beforeEach(() => {

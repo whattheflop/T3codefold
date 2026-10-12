@@ -8,7 +8,7 @@ const [directory, tag, version] = process.argv.slice(2);
 if (!directory || !tag || !version || !tag.startsWith("fold-preview-v")) {
   throw new Error("Usage: publish-fold-desktop.ts <directory> <fold-preview-vVERSION> <version>");
 }
-const repository = "BreakTheBeta/T3codefold";
+const repository = "whattheflop/T3codefold";
 const channel = version.includes("-nightly.") ? "nightly" : "latest";
 const assets = (await NodeFSP.readdir(directory))
   .filter(

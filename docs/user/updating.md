@@ -61,7 +61,7 @@ or `--tailscale-serve`.
 
 If you run the server with `npx` rather than an installed `t3`, there is
 nothing to update on the host: stop the server and relaunch it as
-`npx --yes --prefer-online --package=https://github.com/BreakTheBeta/T3codefold/releases/download/fold-server-v<client-version>/t3-<client-version>.tgz t3`
+`npx --yes --prefer-online --package=https://github.com/whattheflop/T3codefold/releases/download/fold-server-v<client-version>/t3-<client-version>.tgz t3`
 with the same subcommand and options. The npm `t3` package installs upstream
 T3 Code, not Fold.
 

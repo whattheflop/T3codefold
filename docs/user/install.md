@@ -15,13 +15,13 @@ launch T3 Code and configure providers afterwards.
 ## Command line
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/BreakTheBeta/T3codefold/main/scripts/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/whattheflop/T3codefold/main/scripts/install.sh | sh
 ```
 
 On Windows, in PowerShell:
 
 ```powershell
-irm https://raw.githubusercontent.com/BreakTheBeta/T3codefold/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/whattheflop/T3codefold/main/scripts/install.ps1 | iex
 ```
 
 This installs Fold 0.4.0 or later and puts `t3` in `~/.local/bin`. Upstream's
@@ -49,7 +49,7 @@ for an independent server.
 To try Fold once without installing it, run this instead (needs Node.js 24 for `npx`):
 
 ```bash
-npx --yes --prefer-online --package=https://github.com/BreakTheBeta/T3codefold/releases/download/fold-server-latest/t3.tgz t3
+npx --yes --prefer-online --package=https://github.com/whattheflop/T3codefold/releases/download/fold-server-latest/t3.tgz t3
 ```
 
 ### Intel Macs
@@ -59,7 +59,7 @@ run a server there, build it from source with Node.js 24 and `vp`
 ([Install vp](https://github.com/pingdotgg/t3code#install-vp)):
 
 ```bash
-git clone https://github.com/BreakTheBeta/T3codefold t3code
+git clone https://github.com/whattheflop/T3codefold t3code
 cd t3code && vp i && vp run build:desktop
 node apps/server/dist/bin.mjs
 ```
@@ -69,7 +69,7 @@ update it with `git pull` and a rebuild.
 
 ## Desktop app
 
-Download a release from [GitHub Releases](https://github.com/BreakTheBeta/T3codefold/releases),
+Download a release from [GitHub Releases](https://github.com/whattheflop/T3codefold/releases),
 using the asset for your operating system. Upstream package-manager entries
 (winget, Homebrew, AUR) install regular T3 Code.
 

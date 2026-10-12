@@ -17,7 +17,7 @@
 # instead of fetching the release again.
 set -eu
 
-repo="BreakTheBeta/T3codefold"
+repo="whattheflop/T3codefold"
 base_url="${T3CODE_RELEASE_BASE_URL:-https://github.com/${repo}/releases/download}"
 t3_home="${T3CODE_HOME:-$HOME/.t3}"
 bin_dir="${T3CODE_INSTALL_BIN_DIR:-$HOME/.local/bin}"

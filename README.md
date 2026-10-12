@@ -4,7 +4,7 @@
 
 T3 Code Fold is a fork of [T3 Code](https://github.com/pingdotgg/t3code) built for Android foldables. Unfold your phone and you get chat, files, terminal and git side by side. Pair a Bluetooth keyboard and you get laptop shortcuts and optional Vim navigation. Codex can talk back to you, and the whole app gets splatter-paint styling. Everything still works on web, desktop and regular phones, and Fold clients connect to the same servers as upstream T3 Code.
 
-[Download the Android preview](https://github.com/BreakTheBeta/T3codefold/releases) · [Install a server](#installation) · [Update guide](docs/user/updating.md)
+[Download the Android preview](https://github.com/whattheflop/T3codefold/releases) · [Install a server](#installation) · [Update guide](docs/user/updating.md)
 
 ![T3 Code Fold on an unfolded phone: thread sidebar beside a conversation](docs/images/fold-hero.webp)
 
@@ -103,7 +103,7 @@ Compared with upstream `main` at [bfec2387b8](https://github.com/pingdotgg/t3cod
 - Compatibility mode connects updated Fold clients to older servers. New orchestration actions still need a current server; it does not retrofit old client binaries.
 - Updated clients preserve basic voice on older Fold hosts and enable advanced controls per host as servers are updated. Older clients retain basic voice on updated hosts. Task switching reconnects audio; view sharing is optional and bounded, without screen capture. Recheck upstream voice controls, context sharing, and call ownership across clients before retiring these differences.
 - Android activity notifications are local, connected-app notifications, not disconnected push delivery. Bluetooth behavior, including Meta Ray-Ban glasses, still needs physical-device verification.
-- Installers and source availability differ. macOS automatic updates require signed builds; unsigned Mac builds are manual downloads. See [releases](https://github.com/BreakTheBeta/T3codefold/releases) for available artifacts.
+- Installers and source availability differ. macOS automatic updates require signed builds; unsigned Mac builds are manual downloads. See [releases](https://github.com/whattheflop/T3codefold/releases) for available artifacts.
 
 </details>
 
@@ -150,14 +150,14 @@ We wanted something performant, remote-ready, and truly open. If we ever go the 
 ### Command line
 
 ```bash
-npx --yes --prefer-online --package=https://github.com/BreakTheBeta/T3codefold/releases/download/fold-server-latest/t3.tgz t3
+npx --yes --prefer-online --package=https://github.com/whattheflop/T3codefold/releases/download/fold-server-latest/t3.tgz t3
 ```
 
-Tip: Use `npx --yes --prefer-online --package=https://github.com/BreakTheBeta/T3codefold/releases/download/fold-server-latest/t3.tgz t3 --help` for the full CLI reference.
+Tip: Use `npx --yes --prefer-online --package=https://github.com/whattheflop/T3codefold/releases/download/fold-server-latest/t3.tgz t3 --help` for the full CLI reference.
 
 ### Desktop app
 
-Download Fold desktop builds from [GitHub Releases](https://github.com/BreakTheBeta/T3codefold/releases). The upstream Homebrew, winget, and AUR packages install regular T3 Code.
+Download Fold desktop builds from [GitHub Releases](https://github.com/whattheflop/T3codefold/releases). The upstream Homebrew, winget, and AUR packages install regular T3 Code.
 
 ## Some notes
 

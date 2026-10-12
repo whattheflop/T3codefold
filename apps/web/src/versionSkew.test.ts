@@ -24,7 +24,7 @@ import {
 } from "./versionSkew";
 
 const FOLD_SPEC_0_0_45 =
-  "https://github.com/BreakTheBeta/T3codefold/releases/download/fold-server-v0.0.45/t3-0.0.45.tgz";
+  "https://github.com/whattheflop/T3codefold/releases/download/fold-server-v0.0.45/t3-0.0.45.tgz";
 const MISMATCH_HINT =
   "Version mismatch. Try syncing the client and server to the same T3 Code version.";
 
@@ -48,7 +48,7 @@ describe("versionSkew", () => {
 
   it("falls back to the latest Fold release for versions without a release tag", () => {
     expect(manualServerUpdateCommand("dev build")).toBe(
-      "npx --yes --prefer-online --package=https://github.com/BreakTheBeta/T3codefold/releases/download/fold-server-latest/t3.tgz t3",
+      "npx --yes --prefer-online --package=https://github.com/whattheflop/T3codefold/releases/download/fold-server-latest/t3.tgz t3",
     );
   });
 
@@ -241,7 +241,7 @@ describe("versionSkew", () => {
           serverVersion: "9.9.9",
           capabilities: {
             repositoryIdentity: true,
-            updateRepository: "BreakTheBeta/T3codefold",
+            updateRepository: "whattheflop/T3codefold",
             serverSelfUpdate: "desktop-managed",
           },
         },
@@ -259,7 +259,7 @@ describe("versionSkew", () => {
         serverVersion: "9.9.9",
         capabilities: {
           repositoryIdentity: true,
-          updateRepository: "BreakTheBeta/T3codefold",
+          updateRepository: "whattheflop/T3codefold",
           serverSelfUpdate: "desktop-managed" as const,
           ...(desktopAppUpdate === undefined ? {} : { desktopAppUpdate }),
         },

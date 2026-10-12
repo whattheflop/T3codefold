@@ -74,12 +74,12 @@ describe("DesktopUpdates", () => {
         assert.deepEqual(harness.feedUrls(), [
           {
             provider: "generic",
-            url: "https://github.com/BreakTheBeta/T3codefold/releases/download/fold-desktop-latest",
+            url: "https://github.com/whattheflop/T3codefold/releases/download/fold-desktop-latest",
             channel: "latest",
           },
           {
             provider: "generic",
-            url: "https://github.com/BreakTheBeta/T3codefold/releases/download/fold-desktop-nightly",
+            url: "https://github.com/whattheflop/T3codefold/releases/download/fold-desktop-nightly",
             channel: "nightly",
           },
         ]);

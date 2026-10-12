@@ -1,4 +1,4 @@
-const REPO = "BreakTheBeta/T3codefold";
+const REPO = "whattheflop/T3codefold";
 
 export const RELEASES_URL = `https://github.com/${REPO}/releases`;
 export const NIGHTLY_RELEASES_URL = `${RELEASES_URL}?q=nightly&expanded=true`;

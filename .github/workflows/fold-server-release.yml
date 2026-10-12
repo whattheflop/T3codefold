@@ -26,7 +26,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   archives:
-    if: github.repository == 'BreakTheBeta/T3codefold'
+    if: github.repository == 'whattheflop/T3codefold'
     strategy:
       fail-fast: false
       matrix:
@@ -45,7 +45,7 @@ jobs:
       artifact_name: fold-cli-${{ matrix.key }}
   release:
     needs: archives
-    if: github.repository == 'BreakTheBeta/T3codefold'
+    if: github.repository == 'whattheflop/T3codefold'
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v6

@@ -250,7 +250,7 @@ const config: ExpoConfig = {
     // GitHub hosts the fork's protocol manifest and content-addressed assets.
     // Fingerprinted runtimes prevent JavaScript from crossing native revisions.
     enabled: APP_VARIANT === "preview" && resolvesFingerprintRuntimeVersion,
-    url: "https://raw.githubusercontent.com/BreakTheBeta/T3codefold/mobile-ota/manifest-android.json",
+    url: "https://raw.githubusercontent.com/whattheflop/T3codefold/mobile-ota/manifest-android.json",
     checkAutomatically: "ON_LOAD",
     fallbackToCacheTimeout: 0,
   },
@@ -509,11 +509,11 @@ const config: ExpoConfig = {
       tracesDataset: repoEnv.EXPO_PUBLIC_OTLP_TRACES_DATASET ?? null,
       tracesToken: repoEnv.EXPO_PUBLIC_OTLP_TRACES_TOKEN ?? null,
     },
-    eas: {
-      projectId: "5c3bde99-9c75-4cd6-b0a0-cc5d2cf846df",
-    },
+    ...(repoEnv.T3CODE_EAS_PROJECT_ID
+      ? { eas: { projectId: repoEnv.T3CODE_EAS_PROJECT_ID } }
+      : {}),
   },
-  owner: "BreakTheBeta",
+  owner: repoEnv.T3CODE_EXPO_OWNER ?? "whattheflop",
 };
 
 export default config;
