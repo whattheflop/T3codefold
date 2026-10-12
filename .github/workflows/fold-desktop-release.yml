@@ -20,7 +20,24 @@ permissions:
   contents: read
 
 jobs:
+  prepare:
+    if: github.repository == 'whattheflop/T3codefold'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: package.json
+      - name: Reserve desktop release tags before building
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+          CHANNEL: ${{ contains(inputs.version, '-nightly.') && 'nightly' || 'latest' }}
+        run: node scripts/prepare-fold-release-tags.ts "$RELEASE_TAG" "fold-desktop-$CHANNEL"
   server:
+    needs: prepare
     if: github.repository == 'whattheflop/T3codefold' && !inputs.desktop_only
     uses: ./.github/workflows/fold-server-release.yml
     permissions:
@@ -30,7 +47,7 @@ jobs:
       channel: ${{ contains(inputs.version, '-nightly.') && 'nightly' || 'latest' }}
   linux:
     if: ${{ !cancelled() && (needs.server.result == 'success' || (inputs.desktop_only && needs.server.result == 'skipped')) }}
-    needs: server
+    needs: [prepare, server]
     concurrency:
       group: fold-desktop-linux
       cancel-in-progress: false

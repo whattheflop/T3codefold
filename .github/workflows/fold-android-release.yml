@@ -11,7 +11,29 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  prepare:
+    if: github.repository == 'whattheflop/T3codefold'
+    runs-on: ubuntu-24.04
+    outputs:
+      tag: ${{ steps.release.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: package.json
+      - name: Reserve Android release tag before building
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          APP_VARIANT: preview
+        run: |
+          set -euo pipefail
+          version="$(node -p "require('./apps/mobile/app.config.ts').default.version")"
+          tag="fold-android-v$version-${GITHUB_RUN_NUMBER}"
+          node scripts/prepare-fold-release-tags.ts "$tag"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
   android:
+    needs: prepare
     if: github.repository == 'whattheflop/T3codefold'
     runs-on: ubuntu-24.04
     timeout-minutes: 90
@@ -57,8 +79,8 @@ jobs:
       - name: Publish Android preview
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.prepare.outputs.tag }}
         shell: bash
         run: |
           set -euo pipefail
-          tag="fold-android-v$FOLD_ANDROID_VERSION-${GITHUB_RUN_NUMBER}"
-          gh release create "$tag" release-assets/* --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "Fold Android $FOLD_ANDROID_VERSION preview" --prerelease --notes "Self-contained sideload preview built from this fork. Uses the Expo development signing key; not a Play Store release. JavaScript OTA updates are disabled; install a newer APK to update."
+          gh release create "$RELEASE_TAG" release-assets/* --verify-tag --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "Fold Android $FOLD_ANDROID_VERSION preview" --prerelease --notes "Self-contained sideload preview built from this fork. Uses the Expo development signing key; not a Play Store release. JavaScript OTA updates are disabled; install a newer APK to update."

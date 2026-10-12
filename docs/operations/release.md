@@ -11,6 +11,12 @@ For this fork, run **Fold desktop release** with version `0.4.3` and release tag
 Leave `desktop_only` off for the first build of a version. Releases build only
 Android and Linux; Windows and macOS release jobs are omitted.
 
+Release workflows reserve their tags before compiling, then publish with
+`--verify-tag`. This keeps publishing tied to the build's commit even when
+`main` advances during a long build, without requiring a personal access token.
+An exact version tag cannot be reused for another commit, including after a
+failed build; choose a new version when rebuilding changed source.
+
 Run **Fold Android release** to build and publish a self-contained sideload APK
 without an Expo account. This preview uses Expo's development signing key and
 has OTA updates disabled. Install a newer APK to update; it cannot replace a

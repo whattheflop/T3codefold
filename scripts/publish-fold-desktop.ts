@@ -36,6 +36,7 @@ for (const releaseTag of releaseTags) {
         "release",
         "create",
         releaseTag,
+        "--verify-tag",
         "--target",
         process.env.GITHUB_SHA ?? "main",
         "--title",
