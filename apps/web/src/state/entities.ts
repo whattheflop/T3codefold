@@ -11,11 +11,6 @@ import {
 } from "@t3tools/client-runtime/state/threads";
 import type { ScopedProjectRef, ScopedThreadRef, ServerConfig } from "@t3tools/contracts";
 import type { EnvironmentId, OrchestrationV2ProjectedTurnItem } from "@t3tools/contracts";
-import {
-  collectMergedPullRequests,
-  sameMerges,
-  type MergedPullRequest,
-} from "@t3tools/shared/mergeSplatters";
 import { Atom } from "effect/reactivity";
 import { appAtomRegistry } from "../rpc/atomRegistry";
 import { environmentProjects } from "./projects";
@@ -122,6 +117,12 @@ export function useThreadShell(ref: ScopedThreadRef | null): EnvironmentThreadSh
   );
 }
 
+export function useChildThreadInputs(ref: ScopedThreadRef | null) {
+  return useAtomValue(
+    ref === null ? EMPTY_THREAD_SHELLS_ATOM : environmentThreadShells.childThreadInputsAtom(ref),
+  );
+}
+
 export function useThreadProjection(ref: ScopedThreadRef | null): EnvironmentThread | null {
   return useAtomValue(
     ref === null ? EMPTY_THREAD_PROJECTION_ATOM : environmentThreadDetails.threadAtom(ref),
@@ -190,6 +191,20 @@ export function waitForProject(
     };
     unsubscribe = appAtomRegistry.subscribe(environmentProjects.projectAtom(ref), finish);
     finish(readProject(ref));
+  });
+}
+
+/**
+ * Resolves once a deleted project leaves the live client store. The delete
+ * command returns before the shell stream does, so anything that picks a
+ * project in between (the index route's draft landing) still sees it.
+ */
+export function waitForProjectRemoval(ref: ScopedProjectRef, timeoutMs = 5_000): Promise<boolean> {
+  return waitForAtomValue({
+    registry: appAtomRegistry,
+    atom: environmentProjects.projectAtom(ref),
+    predicate: (project) => project === null,
+    timeoutMs,
   });
 }
 
@@ -302,25 +317,4 @@ export function readEnvironmentThreadRefs(
 
 export function readThreadShells(): ReadonlyArray<EnvironmentThreadShell> {
   return appAtomRegistry.get(environmentThreadShells.threadShellsAtom);
-}
-
-/**
- * Every merged PR across connected environments, for the dynamic splatter.
- * Hands back the previous array while the merges are unchanged, so thread
- * activity that is not a merge never re-renders its readers. Unmounted, it
- * is not computed at all.
- */
-let previousMergedPullRequests: ReadonlyArray<MergedPullRequest> = [];
-const mergedPullRequestsAtom = Atom.make((get) => {
-  const next = collectMergedPullRequests(
-    get(environmentThreadShells.threadShellsAtom),
-    get(environmentProjects.projectsAtom),
-  );
-  if (sameMerges(previousMergedPullRequests, next)) return previousMergedPullRequests;
-  previousMergedPullRequests = next;
-  return next;
-}).pipe(Atom.withLabel("web-merged-pull-requests"));
-
-export function useMergedPullRequests(): ReadonlyArray<MergedPullRequest> {
-  return useAtomValue(mergedPullRequestsAtom);
 }

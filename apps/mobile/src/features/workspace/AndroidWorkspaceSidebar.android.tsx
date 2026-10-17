@@ -1,0 +1,29 @@
+import { useMemo, type ReactNode } from "react";
+import { View } from "react-native";
+import { MaterialScreenContent } from "../../components/MaterialScreenContent";
+import { PullRequestsScreen } from "../pull-requests/PullRequestsScreen";
+import { MaterialPullRequestToolbar } from "../pull-requests/MaterialPullRequestToolbar.android";
+import { WorkspaceTabsContext, useWorkspaceTabs } from "./WorkspaceTabsContext";
+import { WorkspaceTabSwitcher } from "./AndroidWorkspaceNavigation";
+
+export function AndroidWorkspaceSidebar(props: {
+  readonly children: ReactNode;
+  readonly onRequestVisibility: () => void;
+  readonly selectedPullRequestKey: string | null;
+}) {
+  const workspace = useWorkspaceTabs()!;
+  const context = useMemo(() => ({ ...workspace, bottomClearance: 16 }), [workspace]);
+  return workspace.state.selectedTab === "threads" ? (
+    props.children
+  ) : (
+    <WorkspaceTabsContext value={context}>
+      <View className="flex-1 bg-header">
+        <MaterialPullRequestToolbar sidebar onRequestVisibility={props.onRequestVisibility} />
+        <WorkspaceTabSwitcher className="px-4 pb-2" />
+        <MaterialScreenContent insetHorizontal>
+          <PullRequestsScreen sidebar selectedPullRequestKey={props.selectedPullRequestKey} />
+        </MaterialScreenContent>
+      </View>
+    </WorkspaceTabsContext>
+  );
+}
