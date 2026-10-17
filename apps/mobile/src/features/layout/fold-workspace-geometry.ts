@@ -62,7 +62,16 @@ export function useFoldWorkspaceGeometry() {
     () => workspaceView.current?.measureInWindow((_x, y) => setWorkspaceTop(y)),
     [],
   );
+  const windowHinge = useMemo(() => {
+    const hinge = posture.hinges.find(
+      (candidate) =>
+        candidate.orientation === "vertical" &&
+        (candidate.separating || candidate.state === "halfOpened"),
+    );
+    return hinge ? { x: hinge.left, width: hinge.right - hinge.left } : null;
+  }, [posture.hinges]);
   return {
+    windowHinge,
     layout,
     width,
     leadingInset,
